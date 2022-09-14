@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using GramGames.CraftingSystem.DataContainers;
 using UnityEngine;
 
@@ -13,13 +14,20 @@ public class GridCell : MonoBehaviour
     private MergableItem _item;
     public MergableItem Item => _item;
 
+    //Item Density should be a value 0-100 representing the probability of item appear
+    [SerializeField] private int itemDensity;
+    [SerializeField] private int recipeRange;
+
     public void SpawnItem(NodeContainer item)
     {
 	    _handler.ClearCell(this);
+    //    itemDensity = GameManager.Instance.configFile.itemDensity;
+    //    if (Random.Range(0, 100) <= itemDensity)
+   //     {
+            var obj = Instantiate(GameManager.Instance.DraggableObjectPrefab);
+            obj.Configure(item, this);
+   //     }
 
-		var game = FindObjectOfType<Game>();
-		var obj = Instantiate(game.DraggableObjectPrefab);
-	    obj.Configure(item, this);
     }
     
     public void SetHandler(GridHandler handler)

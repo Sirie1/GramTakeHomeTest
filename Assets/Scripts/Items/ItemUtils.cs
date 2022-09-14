@@ -68,7 +68,7 @@ public static class ItemUtils
 
 	public static NodeContainer FindBestRecipe(NodeContainer[] items)
 	{
-		int quantityFound = 0;
+		
 
 		foreach (var entries in RecipeMap)
 		{

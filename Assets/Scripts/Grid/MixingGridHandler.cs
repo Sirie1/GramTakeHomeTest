@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class MixingGridHandler : GridHandler
 {
-	[SerializeField] private MergableItem _itemPrefab;
+	[SerializeField] public MergableItem _itemPrefab;
 	[SerializeField] private GridHandler _fallbackMixItem;
-	[SerializeField] private Button _mixbutton;
+	[SerializeField] public Button _mixbutton;
 
 	private void Awake()
 	{

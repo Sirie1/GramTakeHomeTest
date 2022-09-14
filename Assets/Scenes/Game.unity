@@ -441,6 +441,11 @@ PrefabInstance:
       propertyPath: _right
       value: 
       objectReference: {fileID: 2028723996}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
@@ -731,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -758,7 +763,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -857,6 +862,11 @@ PrefabInstance:
       propertyPath: _left
       value: 
       objectReference: {fileID: 2028723996}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
@@ -1002,7 +1012,7 @@ GameObject:
   - component: {fileID: 364787908}
   - component: {fileID: 364787907}
   m_Layer: 0
-  m_Name: game
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,6 +1030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b252e4cce07cb4f559c789e95283e422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configFile:
+    itemDensity: 28
+    recipeRange: 0
   DraggableObjectPrefab: {fileID: 6012301240760876610, guid: e0ca2dcbb421a40f6b607a7b1b392196,
     type: 3}
   MainGrid: {fileID: 744121703}
@@ -2092,6 +2105,11 @@ PrefabInstance:
       propertyPath: _right
       value: 
       objectReference: {fileID: 192003075}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
@@ -3411,6 +3429,11 @@ PrefabInstance:
       propertyPath: _right
       value: 
       objectReference: {fileID: 937840784}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
@@ -3778,7 +3801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1711293536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4519,6 +4542,11 @@ PrefabInstance:
       propertyPath: _right
       value: 
       objectReference: {fileID: 276102558}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
@@ -4761,6 +4789,11 @@ PrefabInstance:
       propertyPath: _right
       value: 
       objectReference: {fileID: 1449971390}
+    - target: {fileID: 7310832126793228370, guid: ebd78d08a88694a49aee8d7b23db7df4,
+        type: 3}
+      propertyPath: itemDensity
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 149963077608748507, guid: ebd78d08a88694a49aee8d7b23db7df4,
         type: 3}
       propertyPath: m_IsActive
