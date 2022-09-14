@@ -1189,8 +1189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configFile:
-    itemDensity: 42
-    recipe2IngRange: 3
+    itemDensity: 100
+    recipe2IngRange: 1
     recipe3IngRange: 0
     recipe4IngRange: 0
   DraggableObjectPrefab: {fileID: 6012301240760876610, guid: e0ca2dcbb421a40f6b607a7b1b392196,
@@ -3989,9 +3989,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8391373212977687871, guid: 6e10e98afcc34124c8231bc333d857f3,
-          type: 3}
-        m_MethodName: ToMainMenuScene
+      - m_Target: {fileID: 364787907}
+        m_MethodName: GoToMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

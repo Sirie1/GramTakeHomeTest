@@ -41,6 +41,8 @@ public class ScenePersist : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
+
+
     public void ToGameScene()
     {
         sceneNum++;
@@ -52,5 +54,16 @@ public class ScenePersist : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+
+    public void ToNextScene()
+    {
+        sceneNum++;
+        if (sceneNum > 1)
+        {
+            sceneNum = 0;
+        }
+
+        SceneManager.LoadScene(sceneNum);
+    }
     #endregion
 }

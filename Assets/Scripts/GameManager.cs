@@ -103,7 +103,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     
-    
+    public void GoToMainScene()
+    {
+        ScenePersist.Instance.ToMainMenuScene();
+    }
     public void ReloadLevel(int difficulty = 1)
 	{
 		// clear the board
