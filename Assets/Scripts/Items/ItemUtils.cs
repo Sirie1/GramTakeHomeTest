@@ -12,13 +12,18 @@ public static class ItemUtils
     public static Dictionary<string, HashSet<NodeData>> RecipeMap2Ing = new Dictionary<string, HashSet<NodeData>>();
     public static Dictionary<string, HashSet<NodeData>> RecipeMap3Ing = new Dictionary<string, HashSet<NodeData>>();
     public static Dictionary<string, HashSet<NodeData>> RecipeMap4Ing = new Dictionary<string, HashSet<NodeData>>();
-
+    public static bool initialized;
 
     public static void InitializeMap()
 	{
+		if (initialized == false)
+		{
+
+
 		var nodes = Resources.LoadAll<NodeContainer>("CraftingObjects");
 		foreach (var node in nodes)
 		{
+
 			ItemsMap.Add(node.MainNodeData.NodeGUID, node);
 			
 			if (node.IsRawMaterial())
@@ -64,9 +69,11 @@ public static class ItemUtils
         Debug.Log($"recipes of 2 ing: {RecipeMap2Ing.Count}");
         Debug.Log($"recipes of 3 ing: {RecipeMap3Ing.Count}");
         Debug.Log($"recipes of 4 ing: {RecipeMap4Ing.Count}");
+    
+		initialized = true;
+		}
     }
-
-	public static NodeContainer FindBestRecipe(GridCell cell, NodeContainer droppedItem)
+    public static NodeContainer FindBestRecipe(GridCell cell, NodeContainer droppedItem)
 	{
 		string droppedNodeId = droppedItem.MainNodeData.NodeGUID;
 

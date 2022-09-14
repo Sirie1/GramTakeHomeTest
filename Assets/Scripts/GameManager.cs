@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -18,26 +18,33 @@ public class GameManager : MonoBehaviour
     public GridHandler MainGrid;
     [SerializeField] private List<string> ActiveRecipes = new List<string>();
 
-    int sceneNum;
+
     public static GameManager Instance
     {
         get
-        {/*
+        {
             if (_instance == null)
             {
                 GameObject go = new GameObject("GameManager");
                 go.AddComponent<GameManager>();
-            }*/
+            }
 
             return _instance;
         }
     }
 	private void Awake()
 	{
-        _instance = this;
-        DontDestroyOnLoad(this);
-        
-		Screen.fullScreen =
+
+     //   DontDestroyOnLoad(this);
+       if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        Screen.fullScreen =
 			false; // https://issuetracker.unity3d.com/issues/game-is-not-built-in-windowed-mode-when-changing-the-build-settings-from-exclusive-fullscreen
 
 		// load all item definitions
@@ -47,7 +54,8 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-        sceneNum=0;
+
+
 		ReloadLevel(1);
 	}
 
@@ -94,20 +102,8 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(dir + gameDataFilename, json);
     }
     #endregion
-
-    #region Scene Manage
-    [ContextMenu ("NextScene")]
-    void NextScene()
-    {
-        sceneNum++;
-        if (sceneNum >2)
-        {
-            sceneNum=0;
-        }
-        SceneManager.LoadScene(sceneNum);
-    }
-
-    #endregion
+    
+    
     public void ReloadLevel(int difficulty = 1)
 	{
 		// clear the board
@@ -148,15 +144,11 @@ public class GameManager : MonoBehaviour
             
             if (Random.Range(0, 100)< configFile.itemDensity)
             {
-
-            
                 var chosenRecipe = ActiveRecipes[Random.Range(0, ActiveRecipes.Count)];
-                var ingredients = ItemUtils.RecipeMap[chosenRecipe].ToArray();
-			
+                var ingredients = ItemUtils.RecipeMap[chosenRecipe].ToArray();			
                 var ingredient = ingredients[Random.Range(0,ingredients.Count())];
                 var item = ItemUtils.ItemsMap[ingredient.NodeGUID];
 			    cell.SpawnItem(item);
-
             }
         }
 	}

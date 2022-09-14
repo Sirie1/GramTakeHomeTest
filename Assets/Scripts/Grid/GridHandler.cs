@@ -63,7 +63,12 @@ public class GridHandler : MonoBehaviour
 		{
 			cell.SetHandler(this);
 		}
-	}
+       // ItemUtils.InitializeMap();
+    }
+	private void Start()
+	{
+       // GameManager.Instance.ReloadLevel(1);
+    }
 
 	#endregion
 
