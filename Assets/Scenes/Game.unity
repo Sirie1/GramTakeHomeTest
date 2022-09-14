@@ -1031,11 +1031,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configFile:
-    itemDensity: 28
-    recipeRange: 0
+    itemDensity: 100
+    recipe2IngRange: 1
+    recipe3IngRange: 0
+    recipe4IngRange: 0
   DraggableObjectPrefab: {fileID: 6012301240760876610, guid: e0ca2dcbb421a40f6b607a7b1b392196,
     type: 3}
   MainGrid: {fileID: 744121703}
+  ActiveRecipes: []
 --- !u!4 &364787908
 Transform:
   m_ObjectHideFlags: 0
@@ -3784,6 +3787,36 @@ Transform:
   - {fileID: 276102559}
   m_Father: {fileID: 744121704}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1682481529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682481530}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1682481530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682481529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.1887577, y: 2.3496637, z: 1.2215507}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1711293535
 GameObject:

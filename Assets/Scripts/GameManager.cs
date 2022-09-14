@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,40 +12,42 @@ public class GameManager : MonoBehaviour
 
     private string gameDataSaveDirectory = "/GameData/";
     private string gameDataFilename = "ConfigFile.sav";
-
     public ConfigFile configFile;
+
+    public MergableItem DraggableObjectPrefab;
+    public GridHandler MainGrid;
+    [SerializeField] private List<string> ActiveRecipes = new List<string>();
+
+    int sceneNum;
     public static GameManager Instance
     {
         get
-        {
+        {/*
             if (_instance == null)
             {
                 GameObject go = new GameObject("GameManager");
                 go.AddComponent<GameManager>();
-            }
+            }*/
 
             return _instance;
         }
     }
-
-    public MergableItem DraggableObjectPrefab;
-	public GridHandler MainGrid;
-
-	private List<string> ActiveRecipes = new List<string>();
-
 	private void Awake()
 	{
         _instance = this;
+        DontDestroyOnLoad(this);
         
 		Screen.fullScreen =
 			false; // https://issuetracker.unity3d.com/issues/game-is-not-built-in-windowed-mode-when-changing-the-build-settings-from-exclusive-fullscreen
 
 		// load all item definitions
 		ItemUtils.InitializeMap();
+       
 	}
 
 	private void Start()
 	{
+        sceneNum=0;
 		ReloadLevel(1);
 	}
 
@@ -54,7 +58,15 @@ public class GameManager : MonoBehaviour
 	{
         [Range(1, 100)]
         public int itemDensity;
-        public int recipeRange;
+
+        [Range(0, 6)]
+        public int recipe2IngRange;
+
+        [Range(0, 6)]
+        public int recipe3IngRange;
+
+        [Range(0, 5)]
+        public int recipe4IngRange;
     }
 
     [ContextMenu ("LoadConfigFile")]
@@ -83,7 +95,19 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Scene Manage
+    [ContextMenu ("NextScene")]
+    void NextScene()
+    {
+        sceneNum++;
+        if (sceneNum >2)
+        {
+            sceneNum=0;
+        }
+        SceneManager.LoadScene(sceneNum);
+    }
 
+    #endregion
     public void ReloadLevel(int difficulty = 1)
 	{
 		// clear the board
@@ -93,23 +117,47 @@ public class GameManager : MonoBehaviour
 
 		// choose new recipes
 		ActiveRecipes.Clear();
-		difficulty = Mathf.Max(difficulty, 1);
-		for (int i = 0; i < difficulty; i++)
-		{
-			// a 'recipe' has more than 1 ingredient, else it is just a raw ingredient.
-			var recipe = ItemUtils.RecipeMap.FirstOrDefault(kvp => kvp.Value.Count > 1).Key;
-			ActiveRecipes.Add(recipe);
-		}
+		//difficulty = Mathf.Max(difficulty, 1);
 
-		// populate the board
-		var emptyCells = MainGrid.GetEmptyCells.ToArray();
+
+        if (configFile.recipe2IngRange == 0 && configFile.recipe3IngRange == 0 && configFile.recipe4IngRange == 0)
+            Debug.LogError("Designer must set at least one recipe");
+
+        if (configFile.recipe2IngRange != 0)
+            for (int i=0; i< configFile.recipe2IngRange ;i++)
+            {
+                var recipe = ItemUtils.RecipeMap2Ing.ElementAt(i).Key;
+                ActiveRecipes.Add(recipe);
+            }
+        if(configFile.recipe3IngRange != 0)
+            for (int i = 0; i < configFile.recipe3IngRange; i++)
+            {
+                var recipe = ItemUtils.RecipeMap3Ing.ElementAt(i).Key;
+                ActiveRecipes.Add(recipe);
+            }
+        if (configFile.recipe4IngRange != 0)
+            for (int i = 0; i < configFile.recipe4IngRange; i++)
+            {
+                var recipe = ItemUtils.RecipeMap4Ing.ElementAt(i).Key;
+                ActiveRecipes.Add(recipe);
+            }
+        // populate the board
+        var emptyCells = MainGrid.GetEmptyCells.ToArray();
 		foreach (var cell in emptyCells)
 		{
-			var chosenRecipe = ActiveRecipes[0];
-			var ingredients = ItemUtils.RecipeMap[chosenRecipe].ToArray();
-			var ingredient = ingredients[0];
-			var item = ItemUtils.ItemsMap[ingredient.NodeGUID];
-			cell.SpawnItem(item);
-		}
+            
+            if (Random.Range(0, 100)< configFile.itemDensity)
+            {
+
+            
+                var chosenRecipe = ActiveRecipes[Random.Range(0, ActiveRecipes.Count)];
+                var ingredients = ItemUtils.RecipeMap[chosenRecipe].ToArray();
+			
+                var ingredient = ingredients[Random.Range(0,ingredients.Count())];
+                var item = ItemUtils.ItemsMap[ingredient.NodeGUID];
+			    cell.SpawnItem(item);
+
+            }
+        }
 	}
 }
