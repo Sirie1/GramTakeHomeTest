@@ -6,17 +6,25 @@ using UnityEngine;
 
 public static class ItemUtils
 {
-	public static Dictionary<string, NodeContainer> ItemsMap = new Dictionary<string, NodeContainer>();
-	public static Dictionary<string, HashSet<NodeData>> RecipeMap = new Dictionary<string, HashSet<NodeData>>();
+	public static Dictionary<string, NodeContainer> ItemsMap;
+	public static Dictionary<string, HashSet<NodeData>> RecipeMap;
 
-    public static Dictionary<string, HashSet<NodeData>> RecipeMap2Ing = new Dictionary<string, HashSet<NodeData>>();
-    public static Dictionary<string, HashSet<NodeData>> RecipeMap3Ing = new Dictionary<string, HashSet<NodeData>>();
-    public static Dictionary<string, HashSet<NodeData>> RecipeMap4Ing = new Dictionary<string, HashSet<NodeData>>();
+    public static Dictionary<string, HashSet<NodeData>> RecipeMap2Ing;
+    public static Dictionary<string, HashSet<NodeData>> RecipeMap3Ing;
+    public static Dictionary<string, HashSet<NodeData>> RecipeMap4Ing;
     public static bool initialized;
 
     public static void InitializeMap()
 	{
-		if (initialized == false)
+
+		ItemsMap = new Dictionary<string, NodeContainer>();
+		RecipeMap = new Dictionary<string, HashSet<NodeData>>();
+
+		RecipeMap2Ing = new Dictionary<string, HashSet<NodeData>>();
+		RecipeMap3Ing = new Dictionary<string, HashSet<NodeData>>();
+		RecipeMap4Ing = new Dictionary<string, HashSet<NodeData>>();
+
+        if (true)
 		{
 
 

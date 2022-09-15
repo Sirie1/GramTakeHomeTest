@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 			false; // https://issuetracker.unity3d.com/issues/game-is-not-built-in-windowed-mode-when-changing-the-build-settings-from-exclusive-fullscreen
 
 		// load all item definitions
-		ItemUtils.InitializeMap();
+		//ItemUtils.InitializeMap();
        
 	}
 
@@ -60,9 +60,14 @@ public class GameManager : MonoBehaviour
 	{
 
 
-		ReloadLevel(1);
+
+        ReloadLevel(1);
         LoadSettingFile();
-        LoadConfigFile();
+        LoadConfigData();
+        Debug.Log ($"density:{configFile.itemDensity}");
+        Debug.Log($"2:{configFile.recipe2IngRange}");
+        Debug.Log($"3:{configFile.recipe3IngRange}");
+        Debug.Log($"4:{configFile.recipe4IngRange}");
     }
 
     #region Settings Manage
@@ -91,6 +96,7 @@ public class GameManager : MonoBehaviour
         settingsFile = JsonUtility.FromJson<SettingsFile>(json);
 
     }
+
     public void SaveSettingData()
     {
         string dir = Application.persistentDataPath + gameDataSaveDirectory;
@@ -126,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-
     #region Config File
 
     [Serializable]
@@ -145,10 +150,16 @@ public class GameManager : MonoBehaviour
         public int recipe4IngRange;
     }
 
-
+    public void SetConfigData(int[] newData)
+    {
+        configFile.itemDensity = newData[0];
+        configFile.recipe2IngRange = newData[1];
+        configFile.recipe3IngRange = newData[2];
+        configFile.recipe4IngRange = newData[3];
+    }
 
     [ContextMenu ("LoadConfigFile")]
-    public void LoadConfigFile()
+    public void LoadConfigData()
 	{
         string dir = Application.persistentDataPath + gameDataSaveDirectory;
         if (!Directory.Exists(dir))
@@ -159,13 +170,14 @@ public class GameManager : MonoBehaviour
         {
             string json = File.ReadAllText(dir + gameDataFilename);
             configFile = JsonUtility.FromJson<ConfigFile>(json);
+            Debug.Log ($"ConfigFile {dir + gameDataFilename} loaded");
         }
         else
             return;
 
     }
     [ContextMenu("SaveConfigFile")]
-    public void SaveGameData()
+    public void SaveConfigData()
     {
         string dir = Application.persistentDataPath + gameDataSaveDirectory;
         if (!Directory.Exists(dir))
@@ -175,6 +187,7 @@ public class GameManager : MonoBehaviour
         }
         string json = JsonUtility.ToJson(configFile, true);
         File.WriteAllText(dir + gameDataFilename, json);
+        Debug.Log($"GameData saved in {dir}");
     }
     #endregion
     
@@ -182,26 +195,34 @@ public class GameManager : MonoBehaviour
     {
         ScenePersist.Instance.ToMainMenuScene();
     }
+    public void ReloadScene()
+    {
+        ScenePersist.Instance.ReloadScene();
+    }
     public void ReloadLevel(int difficulty = 1)
 	{
-		// clear the board
-		var fullCells = MainGrid.GetFullCells.ToArray();
+
+        ItemUtils.InitializeMap();
+        // clear the board
+        var fullCells = MainGrid.GetFullCells.ToArray();
 		for (int i = fullCells.Length - 1; i >= 0; i--)
 			MainGrid.ClearCell(fullCells[i]);
 
 		// choose new recipes
 		ActiveRecipes.Clear();
-		//difficulty = Mathf.Max(difficulty, 1);
+        // Debug.Log ($"Clearing Active recipes to{ActiveRecipes.Count}");
+        //difficulty = Mathf.Max(difficulty, 1);
 
-
+        LoadConfigData();
         if (configFile.recipe2IngRange == 0 && configFile.recipe3IngRange == 0 && configFile.recipe4IngRange == 0)
             Debug.LogError("Designer must set at least one recipe");
-
+        Debug.Log($"2range: {configFile.recipe2IngRange} 3range: {configFile.recipe3IngRange} 4range:{configFile.recipe4IngRange}");
         if (configFile.recipe2IngRange != 0)
             for (int i=0; i< configFile.recipe2IngRange ;i++)
             {
                 var recipe = ItemUtils.RecipeMap2Ing.ElementAt(i).Key;
                 ActiveRecipes.Add(recipe);
+
             }
         if(configFile.recipe3IngRange != 0)
             for (int i = 0; i < configFile.recipe3IngRange; i++)

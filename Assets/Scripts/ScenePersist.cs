@@ -24,37 +24,47 @@ public class ScenePersist : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneNum = 0;
+       // sceneNum = 0;
     }
 
 
     #region Scene Manage
     [ContextMenu("ToMenuScene")]
     public void ToMainMenuScene()
-    {
+    {/*
         sceneNum++;
         if (sceneNum > 1)
         {
             sceneNum = 0;
-        }
-        Debug.Log($"Going to scene {sceneNum}");
+        }*/
+      //  Debug.Log($"Going to scene {sceneNum}");
         SceneManager.LoadScene("Main Menu");
     }
 
 
 
     public void ToGameScene()
-    {
+    {/*
         sceneNum++;
         if (sceneNum > 1)
         {
             sceneNum = 0;
-        }
-        Debug.Log($"Going to scene {sceneNum}");
+        }*/
+      //  Debug.Log($"Going to scene {sceneNum}");
         SceneManager.LoadScene("Game");
     }
 
-
+    public void ReloadScene()
+    {/*
+        sceneNum++;
+        if (sceneNum > 1)
+        {
+            sceneNum = 0;
+        }*/
+      //  Debug.Log($"Going to scene {sceneNum}");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    /*
     public void ToNextScene()
     {
         sceneNum++;
@@ -64,6 +74,6 @@ public class ScenePersist : MonoBehaviour
         }
 
         SceneManager.LoadScene(sceneNum);
-    }
+    }*/
     #endregion
 }

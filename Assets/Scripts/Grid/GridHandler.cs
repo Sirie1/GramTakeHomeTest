@@ -51,7 +51,7 @@ public class GridHandler : MonoBehaviour
 		}
 	}
 
-	private void ClearExistingCells()
+	public void ClearExistingCells()
 	{
 		_emptyCells = new List<GridCell>();
 		_fullCells = new List<GridCell>();
@@ -67,7 +67,7 @@ public class GridHandler : MonoBehaviour
     }
 	private void Start()
 	{
-       // GameManager.Instance.ReloadLevel(1);
+       
     }
 
 	#endregion
