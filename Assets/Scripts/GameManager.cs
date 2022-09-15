@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     private string gameDataFilename = "ConfigFile.sav";
     public ConfigFile configFile;
 
+    private string gameSettingsFilename = "Settings.sav";
+    public SettingsFile settingsFile;
+    [SerializeField] SettingsMenu settingsMenu;
+
     public MergableItem DraggableObjectPrefab;
     public GridHandler MainGrid;
     [SerializeField] private List<string> ActiveRecipes = new List<string>();
@@ -57,11 +61,75 @@ public class GameManager : MonoBehaviour
 
 
 		ReloadLevel(1);
-	}
+        LoadSettingFile();
+        LoadConfigFile();
+    }
 
-	#region Config File
+    #region Settings Manage
 
-	[Serializable]
+    [Serializable]
+    public class SettingsFile
+    {
+        [HideInInspector]
+        public float volumeSetting;
+    }
+
+    private void LoadSettingFile()
+    {
+        string dir = Application.persistentDataPath + gameDataSaveDirectory;
+        if (!Directory.Exists(dir))
+        {
+            Debug.LogWarning($"Directory {dir} was not found");
+            return;
+        }
+        if (!File.Exists(dir + gameSettingsFilename))
+        {
+            Debug.LogWarning($"File {gameSettingsFilename} was not found");
+            return;
+        }
+        string json = File.ReadAllText(dir + gameSettingsFilename);
+        settingsFile = JsonUtility.FromJson<SettingsFile>(json);
+
+    }
+    public void SaveSettingData()
+    {
+        string dir = Application.persistentDataPath + gameDataSaveDirectory;
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+            Debug.Log($"Directory {dir} was created");
+        }
+        string json = JsonUtility.ToJson(settingsFile, true);
+        File.WriteAllText(dir + gameSettingsFilename, json);
+    }
+
+    public void OnSettingEnter()
+    {
+        settingsMenu.gameObject.SetActive(true);
+
+    }
+
+    public void OnSettingClose()
+    {
+        settingsMenu.gameObject.SetActive(false);
+    }
+
+    public void SetSettingsFile(float value)
+    {
+        settingsFile.volumeSetting = value;
+    }
+
+    public float GetSettingsFile()
+    {
+        return settingsFile.volumeSetting;
+    }
+
+    #endregion
+
+
+    #region Config File
+
+    [Serializable]
 	public class ConfigFile
 	{
         [Range(1, 100)]
@@ -76,6 +144,8 @@ public class GameManager : MonoBehaviour
         [Range(0, 5)]
         public int recipe4IngRange;
     }
+
+
 
     [ContextMenu ("LoadConfigFile")]
     public void LoadConfigFile()
