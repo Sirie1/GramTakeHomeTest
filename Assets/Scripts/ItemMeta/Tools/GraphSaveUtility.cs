@@ -1,13 +1,17 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GramGames.CraftingSystem.DataContainers;
 using UnityEditor;
-using UnityEditor.Experimental.UIElements.GraphView;
+//using UnityEditor.Experimental.UIElements.GraphView;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEditor.Experimental.UIElements;
-using UnityEngine.Experimental.UIElements;
+//using UnityEditor.Experimental.UIElements;
+//using UnityEngine.Experimental.UIElements;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 using Object = System.Object;
 
 namespace GramGames.CraftingSystem.Editor
@@ -433,3 +437,4 @@ namespace GramGames.CraftingSystem.Editor
         }
     }
 }
+#endif

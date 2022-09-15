@@ -155,8 +155,13 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning($"Directory {dir} was not found");
         }
-        string json = File.ReadAllText(dir + gameDataFilename);
-		configFile = JsonUtility.FromJson<ConfigFile>(json);
+        if (File.Exists(dir+gameDataFilename))
+        {
+            string json = File.ReadAllText(dir + gameDataFilename);
+            configFile = JsonUtility.FromJson<ConfigFile>(json);
+        }
+        else
+            return;
 
     }
     [ContextMenu("SaveConfigFile")]
